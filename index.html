@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Control de Gastos</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #10b981;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body {
+      margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+      max-width: 480px; margin-inline: auto;
+    }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    h1 { font-size: 1.25rem; margin: 0; }
+    .icon-btn {
+      background: var(--card); border: 1px solid var(--border); color: var(--text);
+      padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1rem;
+    }
+    .amount-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+    }
+    .amount-box span { font-size: 2rem; color: var(--accent); font-weight: 700; }
+    input[type="text"], input[type="url"] {
+      width: 100%; background: transparent; border: none; color: var(--text);
+      font-size: 2.2rem; font-weight: 700; outline: none;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px;
+    }
+    .topic-btn {
+      background: var(--card); border: 2px solid var(--border); color: var(--text);
+      padding: 16px 10px; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; transition: 0.15s;
+    }
+    .topic-btn.active { border-color: var(--accent); background: rgba(16, 185, 129, 0.15); }
+    .submit-btn {
+      width: 100%; padding: 16px; border: none; border-radius: 12px;
+      background: var(--accent); color: #064e3b; font-size: 1.1rem; font-weight: 800;
+      cursor: pointer;
+    }
+    .submit-btn:disabled { opacity: 0.5; }
+    .status { margin-top: 14px; text-align: center; font-size: 0.9rem; min-height: 24px; color: var(--muted); }
+    .config-panel {
+      display: none; background: var(--card); border: 1px solid var(--border);
+      padding: 14px; border-radius: 12px; margin-bottom: 16px;
+    }
+    .config-panel.open { display: block; }
+    .config-panel input { font-size: 0.85rem; border: 1px solid var(--border); padding: 8px; border-radius: 8px; margin-top: 6px; }
+    .badge {
+      display: none; background: #f59e0b; color: #000; padding: 6px 10px;
+      border-radius: 8px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Registrar Gasto</h1>
+    <button class="icon-btn" id="toggleConfig" title="Configurar Webhook">⚙️</button>
+  </header>
+
+  <div class="config-panel" id="configPanel">
+    <label for="webhookUrl" style="font-size:0.85rem; color:var(--muted);">URL del Webhook (Apps Script o n8n):</label>
+    <input type="url" id="webhookUrl" placeholder="https://script.google.com/macros/s/..." />
+    <button class="icon-btn" id="saveConfig" style="margin-top:8px; width:100%;">Guardar URL</button>
+  </div>
+
+  <div class="badge" id="offlineBadge"></div>
+
+  <form id="expenseForm">
+    <div class="amount-box">
+      <span>$</span>
+      <input type="text" id="monto" inputmode="decimal" placeholder="0.00" autocomplete="off" required />
+    </div>
+
+    <div class="grid" id="topicGrid">
+      <button type="button" class="topic-btn active" data-topic="Comida">Comida</button>
+      <button type="button" class="topic-btn" data-topic="Servicios básicos">Servicios básicos</button>
+      <button type="button" class="topic-btn" data-topic="Salud e higiene">Salud e higiene</button>
+      <button type="button" class="topic-btn" data-topic="Transporte">Transporte</button>
+      <button type="button" class="topic-btn" data-topic="Vestimenta">Vestimenta</button>
+      <button type="button" class="topic-btn" data-topic="Gustos">Gustos</button>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Guardar Gasto</button>
+  </form>
+
+  <div class="status" id="statusMsg"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
