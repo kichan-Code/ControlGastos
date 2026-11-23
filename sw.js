@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gastos-pwa-v2';
+const CACHE_NAME = 'gastos-pwa-v2.5';
 const ASSETS = ['./', './index.html', './app.js', './manifest.json'];
 
 self.addEventListener('install', (event) => {
