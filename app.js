@@ -1,4 +1,4 @@
-const DEFAULT_WEBHOOK = 'https://script.google.com/macros/s/AKfycbz7gp_89ALS6DuWoifz_jBafwo1OFEo04t2nDfHpqnfD7j0FD0to2JnEd3fjmcjnepicw/exec';
+const DEFAULT_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxxGxEDqL4KBHxK_1z-FOrLUXN7tlM_mHae5sgeWMZ-ZuH73tY8TBAgDWHc5vKGkOFACw/exec';
 const STORAGE_URL_KEY = 'gastos_webhook_url';
 const STORAGE_QUEUE_KEY = 'gastos_offline_queue';
 
